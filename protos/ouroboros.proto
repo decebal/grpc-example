@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package Grpc.Ouroboros;
+
+option php_generic_services = true;
+
+// Ouroboros communication service definition.
+service Ouroboros {
+  // A simple RPC.
+  //
+  // Obtains the `Response` based on the job asked in the `Request`
+  rpc SyncJob (Request) returns (Response) {}
+
+  // We have a method called `StreamJob` which takes
+  // parameter called `Request` and returns the message `Response`
+
+  // The stream keyword is specified before both the request type and response
+  // type to make it as bidirectional streaming RPC method.
+  rpc StreamJob (stream Request) returns (stream Response) {}
+}
+
+message Request {
+  string job = 1;
+  string message = 2;
+}
+
+message Response {
+  string message = 1;
+}
